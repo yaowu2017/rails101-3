@@ -6,6 +6,7 @@ class GroupsController < ApplicationController
   end
   def show
     @group = Group.find(params[:id])
+    @posts = @group.posts
   end
   def new
     @group = Group.new
@@ -43,7 +44,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     if current_user != @group.user
       redirect_to root_path, alert: "You have no permission"
-    end  
+    end
   end
   def group_params
     params.require(:group).permit(:title, :description)
